@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="baseDir">log</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="FILE"
+                     fileName="${baseDir}/app.log"
+                     filePattern="${baseDir}/app.%d{MM-dd-yyyy-HH-mm-ss}.%i.log.gz"
+                     >
+            <Policies>
+                <!-- added SizeBasedTriggeringPolicy -> increase chance to lost files -->
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy tempCompressedFilePattern ="${baseDir}/app.%d{MM-dd-yyyy-HH-mm-ss}.%i.log.gz.tmp"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="TRACE">
+            <AppenderRef ref="FILE"/>
+        </Root>
+    </Loggers>
+</Configuration>
